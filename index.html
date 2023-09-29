@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query String Parameter Table</title>
+</head>
+<body>
+    <h1>Query String Parameters</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="parameterTable">
+        </tbody>
+    </table>
+
+    <script>
+        // Function to parse the query string and create the table
+        function parseQueryString() {
+            const queryString = window.location.search.substring(1); // Get the query string without the "?"
+            const params = queryString.split("&"); // Split into individual parameters
+
+            const parameterTable = document.getElementById("parameterTable");
+
+            for (const param of params) {
+                const [name, value] = param.split("=");
+                const row = document.createElement("tr");
+
+                const nameCell = document.createElement("td");
+                nameCell.textContent = decodeURIComponent(name);
+
+                const valueCell = document.createElement("td");
+                valueCell.textContent = decodeURIComponent(value);
+
+                row.appendChild(nameCell);
+                row.appendChild(valueCell);
+
+                parameterTable.appendChild(row);
+            }
+        }
+
+        // Call the function when the page loads
+        window.onload = parseQueryString;
+    </script>
+</body>
+</html>
